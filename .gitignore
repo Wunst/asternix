@@ -1,0 +1,14 @@
+# Image files
+/*.iso
+/.sysroot/
+
+# Build outputs
+**/*.o
+**/*.d
+**/*.a
+**/*.so
+
+/kern/akern.bin
+
+# User configuration
+/.vscode/
