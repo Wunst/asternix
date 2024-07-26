@@ -18,6 +18,12 @@ void kmain()
 {
     puts("Hello, world!\n");
 
+    // printf tests
+    printf("%%8d: %8d\n", 0xffffffff);
+    printf("%%8u: %8u\n", 0xffffffff);
+    printf("%%8x: %8x\n", 0xffffffff);
+    printf("A %s line with %d format specifiers (%x in hex)\n", "long", 3, 3);
+
     idt_init();
     pic_init(32);
     pit_init();

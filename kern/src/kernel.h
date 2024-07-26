@@ -39,6 +39,7 @@ typedef int32_t s32;
 typedef int64_t s64;
 
 void puts(const char *msg);
+void printf(const char *fmt, ...);
 
 void setirq(u8 irq, interrupt_handler *func);
 void remirq(u8 irq);

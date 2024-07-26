@@ -9,7 +9,7 @@ This means that I do not make large-scale design decisions: I follow UNIX's for 
 ## Features
 
 - [x] boots on x86 legacy BIOS (32-bit protected mode) using GRUB
-- [ ] can ~~`printf`~~ `puts` from the kernel
+- [x] can `printf` from the kernel
 - [ ] Drivers:
   - [x] PIT
   - [x] VGA text mode
