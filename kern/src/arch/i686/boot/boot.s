@@ -47,6 +47,9 @@ _start:
     movl    %esp, %ebp
 
     // Enter high level kernel.
+    //  kmain((multiboot_info*)%ebx);
+    subl    $12, %esp
+    pushl   %ebx
     call    kmain
 
 1:  hlt
