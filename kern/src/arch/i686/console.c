@@ -147,6 +147,10 @@ void printf(const char *fmt, ...)
                 _putint(va_arg(ap, unsigned), 16, nwidth);
                 break;
 
+            case 'o':
+                _putint(va_arg(ap, unsigned),8, nwidth);
+                break;
+
             default:
                 // End printing on an invalid format specifier.
                 goto fail;
