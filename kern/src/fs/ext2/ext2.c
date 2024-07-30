@@ -12,44 +12,66 @@
 
 #include "../../kernel.h"
 
+#define SBLOCK_PATTERN "LLLLLLLLLLLLWWWWWWLLLLWWLWWLLLS16S16S64LBBWS16LLL"
+
 bool ext2_fsopen(ext2fs *fs, char *data)
 {
     // Read the superblock. The superblock is always at 1K.
     char *sblock = &data[1024];
+    readble(sblock, SBLOCK_PATTERN,
+        &fs->sblock.numinodes,
+        &fs->sblock.numblocks,
+        &fs->sblock.resblocks,
+        &fs->sblock.freeblocks,
+        &fs->sblock.freeinodes,
+        &fs->sblock.sblockno,
+        &fs->sblock.blksizesh,
+        &fs->sblock.fragsizesh,
+        &fs->sblock.grpblocks,
+        &fs->sblock.grpinodes,
+        &fs->sblock.mounttime,
+        &fs->sblock.writtentime,
+        &fs->sblock.mounts,
+        &fs->sblock.fsckmounts,
+        &fs->sblock.signature,
+        &fs->sblock.fsstate,
+        &fs->sblock.errpolicy,
+        &fs->sblock.minorver,
+        &fs->sblock.fscktime,
+        &fs->sblock.fsckinterv,
+        &fs->sblock.os,
+        &fs->sblock.majorver,
+        &fs->sblock.resuid,
+        &fs->sblock.resgid,
+        &fs->sblock.firstino,
+        &fs->sblock.inosize,
+        &fs->sblock.blkgrp,
+        &fs->sblock.optfeatures,
+        &fs->sblock.reqfeatures,
+        &fs->sblock.rwreqfeatures,
+        &fs->sblock.fsid,
+        &fs->sblock.label,
+        &fs->sblock.lastmount,
+        &fs->sblock.compression,
+        &fs->sblock.allocfiles,
+        &fs->sblock.allocdirs,
+        &fs->sblock._unused,
+        &fs->sblock.journalid,
+        &fs->sblock.journalino,
+        &fs->sblock.journaldev,
+        &fs->sblock.orphanino);
 
     // Check the signature.
-    u16 signature = readle16(&sblock[56]);
-    if (signature != 0xef53) {
-        printf("Error: ext2 signature did not match, got: %4x\n", signature);
-        return false;
-    }
-
-    // Check the version.
-    u32 major_version = readle32(&sblock[76]);
-    if (major_version < 1) {
-        printf("Error: ext2 versions < 1.0 are not supported\n");
-        return false;
-    }
-
-    fs->data = data;
-    fs->numinodes  = readle32(&sblock[0]);
-    fs->numblocks  = readle32(&sblock[4]);
-    fs->freeblocks = readle32(&sblock[12]);
-    fs->freeinodes = readle32(&sblock[16]);
-    fs->blksize    = 1024 << readle32(&sblock[24]);
-    fs->inosize    = readle32(&sblock[88]);
-    fs->grpblocks  = readle32(&sblock[32]);
-    fs->grpinodes  = readle32(&sblock[40]);
 
     printf("Opened ext2fs with %d blocks, %d inodes (%d, %d free)\n",
-            fs->numblocks, fs->numinodes, fs->freeblocks, fs->freeinodes);
+            fs->sblock.numblocks, fs->sblock.numinodes, fs->sblock.freeblocks, fs->sblock.freeinodes);
 
     return true;
 }
 
 bool ext2_readinode(ext2fs *fs, ext2_inode *buf, u32 ino)
 {
-    if (ino > fs->numinodes) {
+    /*if (ino > fs->numinodes) {
         return false;
     }
 
@@ -98,7 +120,7 @@ bool ext2_readinode(ext2fs *fs, ext2_inode *buf, u32 ino)
             "First block: %u\n",
             buf->mode, buf->uid, buf->gid, buf->size, buf->atime, buf->ctime,
             buf->mtime, buf->deltime, buf->numlinks, buf->sectors,
-            buf->blocks[0]);
+            buf->blocks[0]);*/
 
     return true;
 }

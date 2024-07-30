@@ -38,17 +38,8 @@ typedef int16_t s16;
 typedef int32_t s32;
 typedef int64_t s64;
 
-// Read 16 bits, Little Endian.
-static inline u16 readle16(const u8 *buf)
-{
-    return (u16)buf[1] << 8 | buf[0];
-}
-
-// Read 32 bits, Little Endian.
-static inline u32 readle32(const u8 *buf)
-{
-    return (u32)buf[3] << 24 | (u32)buf[2] << 16 | (u32)buf[1] << 8 | buf[0];
-}
+void readble(const u8 *buf, const char *fmt, ...);
+void writeble(u8 *buf, const char *fmt, ...);
 
 void puts(const char *msg);
 void printf(const char *fmt, ...);
