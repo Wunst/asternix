@@ -12,7 +12,7 @@
 
 #include "../../kernel.h"
 
-#define SBLOCK_PATTERN "LLLLLLLLLLLLWWWWWWLLLLWWLWWLLLS16S16S64LBBWS16LLL"
+#define SBLOCK_PATTERN "LLLLLLLLLLLLLWWWWWWLLLLWWLWWLLLS16S16S64LBBWS16LLL"
 
 bool ext2_fsopen(ext2fs *fs, char *data)
 {
@@ -28,6 +28,7 @@ bool ext2_fsopen(ext2fs *fs, char *data)
         &fs->sblock.blksizesh,
         &fs->sblock.fragsizesh,
         &fs->sblock.grpblocks,
+        &fs->sblock.grpfrags,
         &fs->sblock.grpinodes,
         &fs->sblock.mounttime,
         &fs->sblock.writtentime,

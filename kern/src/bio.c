@@ -29,49 +29,43 @@ void readble(const u8 *buf, const char *fmt, ...)
     while ((ch = *fmt++)) {
         switch (ch) {
             case 'B':
-                puts("B");
                 *va_arg(ap, u8*) = *buf++;
                 break;
 
             case 'W':
-                puts("W");
-                *va_arg(ap, u16*) = *buf++ + (u16)*buf++ << 8;
+                *va_arg(ap, u16*) = buf[0] + ((u16)buf[1] << 8);
+                buf += 2;
                 break;
             
             case 'L':
-                puts("L");
-                *va_arg(ap, u32*) = *buf++ + (u32)*buf++ << 8 +
-                        (u32)*buf++ << 16 + (u32)*buf++ << 24;
+                *va_arg(ap, u32*) = buf[0] + ((u32)buf[1] << 8) +
+                        ((u32)buf[2] << 16) + ((u32)buf[3] << 24);
+                buf += 4;
                 break;
 
             case 'Q':
-                puts("Q");
-                *va_arg(ap, u64*) = *buf++ + (u64)*buf++ << 8 +
-                        (u64)*buf++ << 16 + (u64)*buf++ << 24 +
-                        (u64)*buf++ << 32 + (u64)*buf++ << 40 +
-                        (u64)*buf++ << 48 + (u64)*buf++ << 56;
+                *va_arg(ap, u64*) = buf[0] + ((u64)buf[1] << 8) +
+                        ((u64)buf[2] << 16) + ((u64)buf[3] << 24) +
+                        ((u64)buf[4] << 32) + ((u64)buf[5] << 40) +
+                        ((u64)buf[6] << 48) + ((u64)buf[7] << 56);
+                buf += 8;
                 break;
 
             case 'S': {
-                puts("S");
                 unsigned length = 0;
-                while ((ch = *++fmt) >= '0' && ch <= '9') {
+                while ((ch = *fmt) >= '0' && ch <= '9') {
                     length *= 10;
                     length += ch - '0';
+                    fmt++;
                 }
-                
                 char *dest = va_arg(ap, char*);
                 for (unsigned i = 0; i < length; i++) {
                     *dest++ = *buf++;
                 }
-
-                printf("%d", length);
-
                 break;
             }
             
             default:
-                puts("fail.");
                 goto fail;
         }
     }

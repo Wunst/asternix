@@ -31,6 +31,7 @@ typedef struct {
     u32 fragsizesh; // fragment size = 1024 << fragsizesh
 
     u32 grpblocks;  // Number of blocks per block group.
+    u32 grpfrags;   // Number of fragments per block group.
     u32 grpinodes;  // Number of inodes per block group.
 
     u32 mounttime;
