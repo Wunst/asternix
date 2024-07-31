@@ -89,6 +89,7 @@ typedef struct {
 
 typedef struct {
     char *data;         // Backing "device", only RAM disk for now.
+    u32 blksize;        // Block size.
     ext2_sblock sblock;
 } ext2fs;
 
@@ -133,6 +134,8 @@ typedef struct {
         u32 size_hi;
         u32 diracl;
     };
+
+    u32 fragment;
 
     u8 oss2[12];    // OS Specific Value #2.
 } ext2_inode;
