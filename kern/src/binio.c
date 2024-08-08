@@ -1,7 +1,7 @@
 /*
  * SPDX-License-Identifier: GPL-3.0-or-later
  *
- * bio.c
+ * binio.c
  * Binary I/O utility
  * 
  * Copyright (C) 2024-present Ben Matthies
